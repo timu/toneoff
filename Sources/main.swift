@@ -23,7 +23,7 @@ func externalDisplayCount() -> Int {
 /// `--status | --on | --off | --toggle`: headless use, e.g. from Shortcuts or a script.
 func runCommandLine(_ flag: String) -> Never {
     guard ["--status", "--on", "--off", "--toggle"].contains(flag) else {
-        print("usage: Toneoff [--status | --on | --off | --toggle]")
+        print("usage: toneoff [--status | --on | --off | --toggle]")
         exit(2)
     }
     guard TrueTone.isSupported, let current = TrueTone.isEnabled else {
@@ -113,14 +113,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             trueToneOn: trueToneOn,
             weTurnedItOff: weTurnedItOff
         )
-        NSLog("Toneoff: externals=%d trueTone=%@ -> %@", count, trueToneOn ? "on" : "off", "\(decision.action)")
+        NSLog("toneoff: externals=%d trueTone=%@ -> %@", count, trueToneOn ? "on" : "off", "\(decision.action)")
 
         switch decision.action {
         case .none: break
         case .turnOff, .turnOn:
             guard TrueTone.setEnabled(decision.action == .turnOn) else {
                 // Leave the transition unrecorded so the next display event retries.
-                NSLog("Toneoff: could not change True Tone")
+                NSLog("toneoff: could not change True Tone")
                 return
             }
         }
@@ -190,7 +190,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 try SMAppService.mainApp.register()
             }
         } catch {
-            NSLog("Toneoff: login item change failed: %@", error.localizedDescription)
+            NSLog("toneoff: login item change failed: %@", error.localizedDescription)
         }
         refresh()
     }

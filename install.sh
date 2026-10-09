@@ -7,10 +7,10 @@ cd "$(dirname "$0")"
 
 DEST="$HOME/Applications"
 mkdir -p "$DEST"
-pkill -x Toneoff 2>/dev/null || true
-rm -rf "$DEST/Toneoff.app"
-cp -R "build/Toneoff.app" "$DEST/"
-open "$DEST/Toneoff.app"
+pkill -x toneoff 2>/dev/null || true
+rm -rf "$DEST/toneoff.app"
+cp -R "build/toneoff.app" "$DEST/"
+open "$DEST/toneoff.app"
 
-echo "Installed to $DEST/Toneoff.app"
+echo "Installed to $DEST/toneoff.app"
 echo "Tick \"Launch at Login\" in its menu bar menu to start it automatically."
