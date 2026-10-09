@@ -22,15 +22,17 @@ func externalDisplayCount() -> Int {
 
 /// `--status | --on | --off | --toggle`: headless use, e.g. from Shortcuts or a script.
 func runCommandLine(_ flag: String) -> Never {
-    UserDefaults.standard.register(defaults: [Key.autoManage: true])
+    guard ["--status", "--on", "--off", "--toggle"].contains(flag) else {
+        print("usage: Toneoff [--status | --on | --off | --toggle]")
+        exit(2)
+    }
     guard TrueTone.isSupported, let current = TrueTone.isEnabled else {
         print("unsupported")
         exit(1)
     }
-    switch flag {
-    case "--status":
+    if flag == "--status" {
         print(current ? "on" : "off")
-    case "--on", "--off", "--toggle":
+    } else {
         let target = flag == "--on" ? true : flag == "--off" ? false : !current
         UserDefaults.standard.set(false, forKey: Key.weTurnedItOff)
         guard TrueTone.setEnabled(target) else {
@@ -38,9 +40,6 @@ func runCommandLine(_ flag: String) -> Never {
             exit(1)
         }
         print(target ? "on" : "off")
-    default:
-        print("usage: Toneoff [--status | --on | --off | --toggle]")
-        exit(2)
     }
     exit(0)
 }
