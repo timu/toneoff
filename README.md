@@ -15,6 +15,12 @@ True Tone is meant for the built-in display, but on some setups it also warms th
 - **⌃⌥⌘T** toggles True Tone by hand from anywhere.
 - The sun icon in the menu bar shows the current state. Its menu has a switch to disable the automation and a **Launch at Login** option.
 
+## Privacy
+
+toneoff has no telemetry or analytics and makes no network connections, not even to check for updates. It only talks to macOS, to read and change the True Tone setting and to notice when displays connect or disconnect. The only things it saves are two preferences on your Mac. The source is short enough to check for yourself.
+
+If you install with Homebrew, note that Homebrew itself collects anonymous install counts for formulae. That is Homebrew's feature, not toneoff's, and you can turn it off with `brew analytics off`.
+
 ## Install
 
 toneoff is built from source on your Mac and ad-hoc signed, so Gatekeeper does not get in the way. Either route needs the Xcode command line tools (`xcode-select --install`).
