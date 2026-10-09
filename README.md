@@ -17,7 +17,18 @@ True Tone is meant for the built-in display, but on some setups it also warms th
 
 ## Install
 
-Requires macOS and the Xcode command line tools (`xcode-select --install`). Toneoff is built locally and ad-hoc signed, so Gatekeeper does not get in the way.
+Toneoff is built from source on your Mac and ad-hoc signed, so Gatekeeper does not get in the way. Either route needs the Xcode command line tools (`xcode-select --install`).
+
+### Homebrew
+
+```sh
+brew install timu/tap/toneoff
+brew services start timu/tap/toneoff
+```
+
+The second command starts Toneoff now and at every login. If you would rather start it by hand, run `open "$(brew --prefix toneoff)/Toneoff.app"`. Use either the Homebrew service or the app's own **Launch at Login** option, not both.
+
+### From source
 
 ```sh
 git clone https://github.com/timu/toneoff.git
@@ -29,18 +40,28 @@ This builds `Toneoff.app`, copies it to `~/Applications` and launches it. Then t
 
 ## Command line
 
-The binary also works headless, which is handy for scripts or a Shortcuts "Run Shell Script" action:
+The binary also works headless, which is handy for scripts or a Shortcuts "Run Shell Script" action. With Homebrew it is on your PATH as `toneoff`:
 
 ```sh
-~/Applications/Toneoff.app/Contents/MacOS/Toneoff --status   # prints on / off
-~/Applications/Toneoff.app/Contents/MacOS/Toneoff --on
-~/Applications/Toneoff.app/Contents/MacOS/Toneoff --off
-~/Applications/Toneoff.app/Contents/MacOS/Toneoff --toggle
+toneoff --status   # prints on / off
+toneoff --on
+toneoff --off
+toneoff --toggle
 ```
+
+When installed from source, run `~/Applications/Toneoff.app/Contents/MacOS/Toneoff` instead.
 
 ## Uninstall
 
-Choose Quit from the menu bar menu, untick **Launch at Login** first if you enabled it, then:
+Homebrew:
+
+```sh
+brew services stop timu/tap/toneoff
+brew uninstall toneoff
+defaults delete io.github.timu.toneoff
+```
+
+From source: choose Quit from the menu bar menu, untick **Launch at Login** if you enabled it, then:
 
 ```sh
 rm -rf ~/Applications/Toneoff.app
